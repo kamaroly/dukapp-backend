@@ -1,4 +1,4 @@
-# Butike
+# Dukapp-Backend
 
 To start your Phoenix server:
 
