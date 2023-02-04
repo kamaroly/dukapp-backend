@@ -24,7 +24,10 @@ defmodule ButikeWeb.Router do
   scope "/api", ButikeWeb.Api, as: :api do
     pipe_through :api 
 
-    get "/backup", BackupController, :index
+    scope "/v1", as: :v1 do
+      get "/backup/orders", BackupController, :orders, as: :list_orders
+      post "/backup/real-time", BackupController, :real_time, as: :backup_real_time
+    end
   end
 
   # Enables LiveDashboard only for development
