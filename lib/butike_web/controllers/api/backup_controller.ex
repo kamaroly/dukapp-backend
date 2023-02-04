@@ -17,7 +17,7 @@ defmodule ButikeWeb.Api.BackupController do
 	def real_time(conn, attributes) do
 		
 		#1. Insert into the database		
-		order = Backup.order(attributes)
+		Backup.record(attributes)
 
 		#2. Construct the response
 		response = %{

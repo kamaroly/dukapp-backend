@@ -10,7 +10,7 @@ defmodule Butike.Backup do
 	@doc """
 	Backups an order
 	"""
-	def order(attributes) do
+	def record(attributes) do
 
 		# Query parameters: "254757161010,sale, 1.72"
 		parameters = String.split(attributes["query_parameters"], ",")
