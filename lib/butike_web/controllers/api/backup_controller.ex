@@ -8,16 +8,15 @@ defmodule ButikeWeb.Api.BackupController do
 
 	"""
 	def orders(conn, _params) do
-	    orders = Backup.get_orders(Order)
+	    orders = Backup.list_orders(Order)
 
 	    render(conn, "index.json", orders: orders)
 	end
 
 
-	def real_time(conn, params) do
+	def real_time(conn, attributes) do
 		
-		#1. Insert into the database
-		attributes = %{"shop_msisdn" => shop_msisdn, "resource" => resource, "action" => action, "columns" => columns, "values" => values} = params
+		#1. Insert into the database		
 		order = Backup.order(attributes)
 
 		#2. Construct the response

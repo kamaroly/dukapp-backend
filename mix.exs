@@ -20,7 +20,7 @@ defmodule Butike.MixProject do
   def application do
     [
       mod: {Butike.Application, []},
-      extra_applications: [:logger, :ex_machina, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools]
     ]
   end
 
@@ -48,9 +48,8 @@ defmodule Butike.MixProject do
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
-      {:plug_cowboy, "~> 2.5"},
-      {:ex_machina, "~> 2.7.0", only: :test}
-     ]
+      {:plug_cowboy, "~> 2.5"}     
+    ]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
@@ -64,7 +63,7 @@ defmodule Butike.MixProject do
       setup: ["deps.get", "ecto.setup"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
+      test: ["ecto.drop --quiet", "ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.deploy": ["esbuild default --minify", "phx.digest"]
     ]
   end
