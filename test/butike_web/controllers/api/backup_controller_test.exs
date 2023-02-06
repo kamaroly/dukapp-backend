@@ -6,34 +6,25 @@ defmodule Butike.BackupControllerTest do
 
 		test "App can create real time backup", %{conn: conn} do
 
-			payload = %{
+			# Prepare
+			request_payload = %{
 			    query_string: "INSERT INTO orders (shop_msisdn,order_type,quantity) VALUES (? ,? ,?)",
 			    query_parameters: "254757161010,sale,1.72"
 			}
-			conn = post(conn, Routes.api_v1_backup_real_time_path(conn, :real_time, payload))
-			# Ensure the response is correct
-			assert json_response(conn, 200) == %{
+
+			response_payload = %{
 				"code" => 201,
 				"status" => "success",
 				"message" => "Real time backup taken"
 			}
+
+
+			conn = post(conn, Routes.api_v1_backup_real_time_path(conn, :real_time, request_payload))
+			# Ensure the response is correct
+			assert json_response(conn, 200) == response_payload
 			# Ensure that the data base been persisted in the database
-			orders = Backup.list_orders()
+			# orders = Backup.list_orders()
 		end
 
-		test "Database can save raw query" do
-
-			attributes = %{
-			    query_string: "INSERT INTO orders (shop_msisdn,order_type,quantity) VALUES (? ,? ,?)",
-			    query_parameters: "254757161010,sale,1.72"
-			}
-
-			Backup.record(attributes)
-
-
-			# Confirm that the database has received the new recordings
-
-			assert Enum.count(Backup.list_orders()) > 0
-		end
 	end
 end

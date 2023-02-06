@@ -12,11 +12,11 @@ defmodule Butike.Backup do
 	"""
 	def record(attributes) do
 
-		# Query parameters: "254757161010,sale, 1.72"
+		# query_values = attributes["query_parameters"]
 		parameters = String.split(attributes["query_parameters"], ",")
-		query_string  = attributes["query_string"] 
+		query = attributes["query_string"] 
 
-		Ecto.Adapters.SQL.query(Repo, query_string, parameters)
+		Ecto.Adapters.SQL.query(Repo, query, parameters)
 	end
 
 	@doc """
