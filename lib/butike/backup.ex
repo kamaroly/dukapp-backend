@@ -7,6 +7,7 @@ defmodule Butike.Backup do
 	alias Butike.Repo
 	alias Ecto.Adapters.SQL
 	alias Butike.Backup.Order
+	alias Butike.Helpers.StringHelper
 
 
 	@doc """
@@ -14,31 +15,16 @@ defmodule Butike.Backup do
 	"""
 	def record(attributes) do
 
-
-		string_to_integer = fn int_string -> 
-						 	Integer.parse(int_string)
-						 	|> case do 
-						 		{int, ""} -> 
-
-						 			if String.length(Integer.to_string(int)) < 7 do
-						 				int
-						 			else
-						 				int_string
-						 			end
-						 		_ -> int_string
-						 	end
-						end
-
 		# query_values = attributes["query_parameters"]
 		parameters = String.split(attributes["query_parameters"], ",")
-
 					 # Parse all integer
-					 |> Enum.map(string_to_integer)
+					 |> Enum.map(fn value -> StringHelper.to_number(value) end)
 
-		IO.inspect(parameters)
+		query =  attributes["query_string"]
 
-		# query =  attributes["query_string"]
-		# Ecto.Adapters.SQL.query!(Repo, query, parameters)
+		IO.inspect query 
+		IO.inspect parameters
+		SQL.query!(Repo, query, parameters)
 	end
 
 
@@ -53,6 +39,6 @@ defmodule Butike.Backup do
 
 	"""
 	def list_orders() do
-		Repo.all(Order)
+		Repo.all(from order in Order)
 	end
 end

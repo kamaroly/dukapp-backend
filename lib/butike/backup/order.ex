@@ -9,7 +9,7 @@ defmodule Butike.Backup.Order do
 		field :item_id, :integer, default: 0
 		field :item_name, :string
 		field :item_description, :string
-		field :customer_or_supplier_id, :string
+		field :customer_or_supplier_id, :integer
 		field :quantity, :decimal
 		field :cost_price, :decimal
 		field :sale_price, :decimal

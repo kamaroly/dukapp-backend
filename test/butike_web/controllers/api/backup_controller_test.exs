@@ -5,7 +5,6 @@ defmodule Butike.BackupControllerTest do
 	describe "Real time backukp" do
 
 		test "App can create real time backup", %{conn: conn} do
-
 			# Prepare
 			request_payload = %{
 			    query_string: "INSERT INTO orders (shop_msisdn,order_type,quantity, item_id, item_name, item_description, customer_or_supplier_id, payment_mode) VALUES (? ,? ,?, ?, ?, ?, ?, ?)",
@@ -18,11 +17,9 @@ defmodule Butike.BackupControllerTest do
 				"message" => "Real time backup taken"
 			}
 
-
 			conn = post(conn, Routes.api_v1_backup_real_time_path(conn, :real_time, request_payload))
 			
 			# Ensure the response is correct
-			
 			assert json_response(conn, 200) == response_payload
 			
 			# Ensure that the data base been persisted in the database
