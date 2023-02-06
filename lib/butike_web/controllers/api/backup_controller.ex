@@ -8,7 +8,7 @@ defmodule ButikeWeb.Api.BackupController do
 
 	"""
 	def orders(conn, _params) do
-	    orders = Backup.list_orders(Order)
+	    orders = Backup.list_orders()
 
 	    render(conn, "index.json", orders: orders)
 	end
