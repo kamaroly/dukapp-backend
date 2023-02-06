@@ -10,12 +10,12 @@ defmodule Butike.Repo.Migrations.CreateOrdersTable do
       add :item_name, :string, null: false
       add :item_description, :string, null: false
       add :customer_or_supplier_id, :integer, null: false
-      add :quantity, :decimal
-      add :cost_price, :decimal
-      add :sale_price, :decimal
+      add :quantity, :decimal, default: 0
+      add :cost_price, :decimal, default: 0
+      add :sale_price, :decimal, default: 0
       add :payment_mode, :string, null: false
-      add :created_at, :naive_datetime
-      add :updated_at, :naive_datetime
+      add :created_at, :naive_datetime, default: fragment("NOW()")
+      add :updated_at, :naive_datetime, default: fragment("NOW()")
       add :deleted_at, :naive_datetime
 
     end
