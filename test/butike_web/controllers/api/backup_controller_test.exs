@@ -29,8 +29,7 @@ defmodule Butike.BackupControllerTest do
       assert Enum.count(orders) == 1
     end
 
-    test "User can retrieve orders by shop phone" do
-      # 1. Create user in the database
+    test "User can fetch orders by shop phone number", %{conn: conn} do
       order = %Order{
         shop_msisdn: "250781854852",
         order_type: "purchase",
@@ -44,33 +43,25 @@ defmodule Butike.BackupControllerTest do
         payment_mode: "m-pesa"
       }
 
-      Backup.create_order(order)
-      Backup.create_order(order)
-
-      stored_orders = Backup.get_orders_by_phone(order.shop_msisdn)
-
-      assert Enum.count(stored_orders) == 2
-    end
-
-    test "get_orders_by_phone returns 0 results when there is no matching phone" do
-      order = %Order{
-        shop_msisdn: "250781854852",
-        order_type: "purchase",
-        item_id: 43,
-        item_name: "Sale Item",
-        item_description: "Why is this even a sale",
-        customer_or_supplier_id: 1,
-        quantity: 43,
-        cost_price: 2,
-        sale_price: 3,
-        payment_mode: "m-pesa"
-      }
-
+      # Create order
       Backup.create_order(order)
 
-      empty_orders = Backup.get_orders_by_phone("2547575772")
+      conn =
+        get(
+          conn,
+          Routes.api_v1_backup_list_orders_by_shop_path(
+            conn,
+            :list_orders_by_shop,
+            order.shop_msisdn
+          )
+        )
 
-      assert Enum.count(empty_orders) == 0
+      response = json_response(conn, 200)
+
+      # Ensure the orders are created in the database
+      created_orders = Backup.list_orders()
+      assert Enum.count(created_orders) == 1
+      assert Enum.count(response) == 1
     end
   end
 end

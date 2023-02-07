@@ -22,7 +22,7 @@ defmodule Backup.BackupTest do
     Backup.create_order(order)
     Backup.create_order(order)
 
-    stored_orders = Backup.get_orders_by_phone(order.shop_msisdn)
+    stored_orders = Backup.list_orders_by_phone(order.shop_msisdn)
 
     assert Enum.count(stored_orders) == 2
   end
@@ -42,7 +42,7 @@ defmodule Backup.BackupTest do
     }
 
     Backup.create_order(order)
-    empty_orders = Backup.get_orders_by_phone("2547575772")
+    empty_orders = Backup.list_orders_by_phone("2547575772")
 
     assert Enum.count(empty_orders) == 0
   end

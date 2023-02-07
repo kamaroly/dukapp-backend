@@ -22,11 +22,14 @@ defmodule ButikeWeb.Router do
 
   # Other scopes may use custom stacks.
   scope "/api", ButikeWeb.Api, as: :api do
-    pipe_through :api 
+    pipe_through :api
 
-    scope "/v1", as: :v1 do
-      get "/backup/orders", BackupController, :orders, as: :list_orders
-      post "/backup/real-time", BackupController, :real_time, as: :backup_real_time
+    scope "/v1/backup", as: :v1_backup do
+      get "/orders", BackupController, :orders, as: :list_orders
+      post "/real-time", BackupController, :real_time, as: :real_time
+
+      get "/:phone_number/orders", BackupController, :list_orders_by_shop,
+        as: :list_orders_by_shop
     end
   end
 

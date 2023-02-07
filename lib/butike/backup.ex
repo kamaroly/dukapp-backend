@@ -27,7 +27,7 @@ defmodule Butike.Backup do
     Repo.insert!(order)
   end
 
-  def get_orders_by_phone(phone_number) do
+  def list_orders_by_phone(phone_number) do
     # Send the query to the repository
     Repo.all(from(order in Butike.Backup.Order, where: order.shop_msisdn == ^phone_number))
   end
