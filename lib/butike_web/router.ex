@@ -24,12 +24,19 @@ defmodule ButikeWeb.Router do
   scope "/api", ButikeWeb.Api, as: :api do
     pipe_through :api
 
-    scope "/v1/backup", as: :v1_backup do
-      get "/orders", BackupController, :orders, as: :list_orders
-      post "/real-time", BackupController, :real_time, as: :real_time
+    scope "/v1", as: :v1 do
+      scope "/authentication", as: :authentication do
+        get "/:shop_phone/send-otp", AuthenticationController, :send_otp, as: :send_otp
+      end
 
-      get "/:phone_number/orders", BackupController, :list_orders_by_shop,
-        as: :list_orders_by_shop
+      # Backup routes
+      scope "/backup", as: :backup do
+        get "/orders", BackupController, :orders, as: :list_orders
+        post "/real-time", BackupController, :real_time, as: :real_time
+
+        get "/:phone_number/orders", BackupController, :list_orders_by_shop,
+          as: :list_orders_by_shop
+      end
     end
   end
 

@@ -14,8 +14,7 @@ defmodule Butike.Backup.Order do
              :sale_price,
              :payment_mode,
              :created_at,
-             :updated_at,
-             :deleted_at
+             :updated_at
            ]}
 
   schema "orders" do
