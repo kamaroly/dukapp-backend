@@ -20,18 +20,27 @@ defmodule Butike.UserService do
   end
 
   def register_user_by_phone(phone, otp_number) do
+    {:ok, otp_will_expire_at} =
+      Timex.shift(Timex.now(), minutes: 2) |> Timex.format("{YYYY}-{0M}-{0D}T{h24}:{m}:{s}")
+
     Repo.insert(%User{
       shop_phone: phone,
-      otp: StringHelper.hash_md5(otp_number)
+      otp: StringHelper.hash_md5(otp_number),
+      otp_expires_at: otp_will_expire_at
     })
   end
 
   def is_otp_valid(phone, otp_code) do
     hashed_otp_code = StringHelper.hash_md5(otp_code)
 
+    {:ok, current_date_time} = Timex.now() |> Timex.format("{YYYY}-{0M}-{0D}T{h24}:{m}:{s}")
+
     result =
       Repo.all(
-        from user in User, where: user.shop_phone == ^phone and user.otp == ^hashed_otp_code
+        from user in User,
+          where:
+            user.shop_phone == ^phone and user.otp == ^hashed_otp_code and
+              user.otp_expires_at > ^current_date_time
       )
 
     Enum.count(result) > 0

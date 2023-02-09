@@ -6,7 +6,7 @@ defmodule Butike.Repo.Migrations.CreateUsersTable do
       add(:shop_phone, :string, nil: false)
       add(:name, :string)
       add(:otp, :string)
-      add(:otp_expires_at, :naive_datetime)
+      add(:otp_expires_at, :string)
 
       timestamps(default: fragment("NOW()"))
     end

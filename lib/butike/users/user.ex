@@ -25,7 +25,7 @@ defmodule Butike.Users.User do
     field :shop_phone, :string
     field :name, :string
     field :otp, :string
-    field :otp_expires_at, :naive_datetime
+    field :otp_expires_at, :string
 
     timestamps()
 
