@@ -15,21 +15,18 @@ defmodule ButikeWeb.Api.AuthenticationController do
   end
 
   def verify_otp(conn, %{"shop_phone" => shop_phone, "otp_code" => otp_code}) do
-    # Prepare response
-    response = %{
-      code: 400,
-      status: "error",
-      message: "Could not verify OTP" <> otp_code <> " for phone " <> shop_phone
-    }
-
     if UserService.is_otp_valid(shop_phone, otp_code) do
-      ^response = %{
+      json(conn, %{
         code: 200,
         status: "success",
         message: "OTP Verified successfully for phone " <> shop_phone
-      }
+      })
+    else
+      json(conn, %{
+        code: 400,
+        status: "error",
+        message: "Could not verify OTP " <> otp_code <> " for phone " <> shop_phone
+      })
     end
-
-    json(conn, response)
   end
 end
