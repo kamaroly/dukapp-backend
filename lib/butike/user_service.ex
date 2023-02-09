@@ -5,7 +5,8 @@ defmodule Butike.UserService do
   @spec create_by_phone(any) :: any
   def create_by_phone(phone) do
     Repo.insert(%User{
-      shop_phone: phone
+      shop_phone: phone,
+      otp: Integer.to_string(Enum.random(1000..9999))
     })
   end
 end
