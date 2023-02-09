@@ -4,7 +4,7 @@ defmodule Users.Api.AuthenticationControllerTest do
   alias Butike.Repo
 
   test "User can be registered with valid unique phone number", %{conn: conn} do
-    shop_msisdn = "254757161010"
+    shop_msisdn = "250781854852"
     conn = get(conn, Routes.api_v1_authentication_send_otp_path(conn, :send_otp, shop_msisdn))
     response = json_response(conn, 200)
 
@@ -14,7 +14,7 @@ defmodule Users.Api.AuthenticationControllerTest do
   end
 
   test "New user is saved in the database when the authentication is sent", %{conn: conn} do
-    shop_msisdn = "254757161010"
+    shop_msisdn = "250781854852"
     conn = get(conn, Routes.api_v1_authentication_send_otp_path(conn, :send_otp, shop_msisdn))
     response = json_response(conn, 200)
 
