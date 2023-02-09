@@ -2,6 +2,23 @@ defmodule Butike.Order.OrderItem do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @derive {Jason.Encoder,
+           only: [
+             :description,
+             :item_id,
+             :meta_data,
+             :name,
+             :note,
+             :order_id,
+             :quantity,
+             :shop_msisdn,
+             :taxes,
+             :total,
+             :unit_cost_price,
+             :unit_sales_price,
+             :variation_id
+           ]}
+
   schema "order_items" do
     field :description, :string
     field :item_id, :integer
@@ -23,7 +40,35 @@ defmodule Butike.Order.OrderItem do
   @doc false
   def changeset(order_item, attrs) do
     order_item
-    |> cast(attrs, [:shop_msisdn, :name, :item_id, :order_id, :description, :variation_id, :quantity, :unit_cost_price, :unit_sales_price, :total, :taxes, :note, :meta_data])
-    |> validate_required([:shop_msisdn, :name, :item_id, :order_id, :description, :variation_id, :quantity, :unit_cost_price, :unit_sales_price, :total, :taxes, :note, :meta_data])
+    |> cast(attrs, [
+      :shop_msisdn,
+      :name,
+      :item_id,
+      :order_id,
+      :description,
+      :variation_id,
+      :quantity,
+      :unit_cost_price,
+      :unit_sales_price,
+      :total,
+      :taxes,
+      :note,
+      :meta_data
+    ])
+    |> validate_required([
+      :shop_msisdn,
+      :name,
+      :item_id,
+      :order_id,
+      :description,
+      :variation_id,
+      :quantity,
+      :unit_cost_price,
+      :unit_sales_price,
+      :total,
+      :taxes,
+      :note,
+      :meta_data
+    ])
   end
 end

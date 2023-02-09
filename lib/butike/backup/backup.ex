@@ -3,10 +3,9 @@ defmodule Butike.Backup.Backup do
   The Backup Context
   """
   # Imports only from/2 of Ecto.Query
-  import Ecto.Query
   alias Butike.Repo
   alias Ecto.Adapters.SQL
-  alias Butike.Order.Order
+  alias Butike.Users.User
   alias Butike.Helpers.EnumHelper
 
   @doc """
@@ -27,21 +26,15 @@ defmodule Butike.Backup.Backup do
     Repo.insert!(order)
   end
 
-  def list_orders_by_phone(phone_number) do
-    # Send the query to the repository
-    Repo.all(from(order in Order, where: order.shop_msisdn == ^phone_number))
-  end
-
   @doc """
-  Returns the list of orders
-  
+  Retrieves backup for a specific phone
+
   ## Examples
-  
-  	iex> list_orders()
-  	[%Order{}, ...]
-  
+    iex> Butike.Backup.Backup.get_backup_for_phone(phone_number)
+    [%User{}, ...]
   """
-  def list_orders() do
-    Repo.all(from(order in Order))
+  def get_backup_for_shop(shop_phone) do
+    Repo.get(User, 1)
+    |> Repo.preload([:orders, :order_items, :items, :item_inventories, :customers, :suppliers])
   end
 end

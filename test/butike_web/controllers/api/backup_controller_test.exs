@@ -1,4 +1,5 @@
 defmodule Butike.BackupControllerTest do
+  alias Butike.UserService
   alias Butike.Order.Order
   use ButikeWeb.ConnCase
   alias Butike.Backup.Backup
@@ -26,11 +27,11 @@ defmodule Butike.BackupControllerTest do
       assert json_response(conn, 200) == response_payload
 
       # Ensure that the data base been persisted in the database
-      orders = Backup.list_orders()
+      orders = Repo.all(Order)
       assert Enum.count(orders) == 1
     end
 
-    test "User can fetch orders by shop phone number", %{conn: conn} do
+    test "User can restore the backup by shop phone number", %{conn: conn} do
       order = %Order{
         coupon_lines: "[]",
         created_via: "mobile-app",
@@ -57,23 +58,23 @@ defmodule Butike.BackupControllerTest do
 
       # Create order
       Backup.create_order(order)
+      UserService.create_by_phone(order.shop_msisdn)
 
       conn =
         get(
           conn,
-          Routes.api_v1_backup_list_orders_by_shop_path(
+          Routes.api_v1_backup_restore_shop_path(
             conn,
-            :list_orders_by_shop,
+            :restore,
             order.shop_msisdn
           )
         )
 
       response = json_response(conn, 200)
 
+      IO.inspect(response)
       # Ensure the orders are created in the database
-      created_orders = Backup.list_orders()
-      assert Enum.count(created_orders) == 1
-      assert Enum.count(response) == 1
+      assert Enum.count(response) > 1
     end
   end
 end

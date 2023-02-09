@@ -2,6 +2,19 @@ defmodule Butike.Supplier.Supplier do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @derive {Jason.Encoder,
+           only: [
+             :address,
+             :company_name,
+             :email,
+             :meta_data,
+             :note,
+             :phone,
+             :shop_msisdn,
+             :shop_supplier_id,
+             :tin
+           ]}
+
   schema "suppliers" do
     field :address, :string
     field :company_name, :string
@@ -19,7 +32,27 @@ defmodule Butike.Supplier.Supplier do
   @doc false
   def changeset(supplier, attrs) do
     supplier
-    |> cast(attrs, [:shop_msisdn, :shop_supplier_id, :company_name, :phone, :email, :tin, :address, :note, :meta_data])
-    |> validate_required([:shop_msisdn, :shop_supplier_id, :company_name, :phone, :email, :tin, :address, :note, :meta_data])
+    |> cast(attrs, [
+      :shop_msisdn,
+      :shop_supplier_id,
+      :company_name,
+      :phone,
+      :email,
+      :tin,
+      :address,
+      :note,
+      :meta_data
+    ])
+    |> validate_required([
+      :shop_msisdn,
+      :shop_supplier_id,
+      :company_name,
+      :phone,
+      :email,
+      :tin,
+      :address,
+      :note,
+      :meta_data
+    ])
   end
 end

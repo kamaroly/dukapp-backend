@@ -7,8 +7,8 @@ defmodule Butike.Repo.Migrations.CreateUsersTable do
       add(:name, :string)
       add(:otp, :string)
       add(:otp_expires_at, :naive_datetime)
-      add(:created_at, :naive_datetime, default: fragment("CURRENT_TIMESTAMP"))
-      add(:updated_at, :naive_datetime, default: fragment("CURRENT_TIMESTAMP"))
+
+      timestamps(default: fragment("NOW()"))
     end
   end
 end

@@ -1,6 +1,7 @@
 defmodule Backup.BackupTest do
   use ButikeWeb.ConnCase
-
+  import Ecto.Query
+  alias Butike.Repo
   alias Butike.Backup.Backup
   alias Butike.Order.Order
 
@@ -33,7 +34,7 @@ defmodule Backup.BackupTest do
     Backup.create_order(order)
     Backup.create_order(order)
 
-    stored_orders = Backup.list_orders_by_phone(order.shop_msisdn)
+    stored_orders = Repo.all(from order in Order, where: order.shop_msisdn == ^order.shop_msisdn)
 
     assert Enum.count(stored_orders) == 2
   end
@@ -64,7 +65,8 @@ defmodule Backup.BackupTest do
     }
 
     Backup.create_order(order)
-    empty_orders = Backup.list_orders_by_phone("2547575772")
+
+    empty_orders = Repo.all(from order in Order, where: order.shop_msisdn == "25475716100")
 
     assert Enum.count(empty_orders) == 0
   end

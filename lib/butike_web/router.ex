@@ -34,11 +34,8 @@ defmodule ButikeWeb.Router do
 
       # Backup routes
       scope "/backup", as: :backup do
-        get "/orders", BackupController, :orders, as: :list_orders
         post "/real-time", BackupController, :real_time, as: :real_time
-
-        get "/:phone_number/orders", BackupController, :list_orders_by_shop,
-          as: :list_orders_by_shop
+        get "/:shop_phone/restore", BackupController, :restore, as: :restore_shop
       end
     end
   end

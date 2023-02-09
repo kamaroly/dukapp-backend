@@ -1,6 +1,5 @@
 defmodule ButikeWeb.Api.AuthenticationController do
   use ButikeWeb, :controller
-  alias Mix.Tasks.Hex.User
   alias Butike.UserService
 
   def send_otp(conn, %{"shop_phone" => shop_phone}) do
