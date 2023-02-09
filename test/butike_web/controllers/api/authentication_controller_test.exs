@@ -3,6 +3,7 @@ defmodule Users.Api.AuthenticationControllerTest do
   alias Butike.UserService
   alias Butike.Users.User
   alias Butike.Repo
+  alias Butike.Helpers.StringHelper
 
   test "User can be registered with valid unique phone number", %{conn: conn} do
     shop_msisdn = "250781854852"
@@ -36,12 +37,17 @@ defmodule Users.Api.AuthenticationControllerTest do
     otp_code = "53738"
 
     # 1. Start by creating OTP
-    Repo.insert!(%User{shop_phone: shop_msisdn, otp: otp_code})
+    Repo.insert!(%User{shop_phone: shop_msisdn, otp: StringHelper.hash_md5(otp_code)})
 
     conn =
       get(
         conn,
         Routes.api_v1_authentication_verify_otp_path(conn, :verify_otp, shop_msisdn, otp_code)
       )
+
+    response = json_response(conn, 200)
+    assert response["code"] == 200
+    assert response["status"] == "success"
+    assert response["message"] == "OTP Verified successfully for phone " <> shop_msisdn
   end
 end
