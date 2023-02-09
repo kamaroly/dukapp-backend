@@ -1,5 +1,6 @@
 defmodule ButikeWeb.Api.AuthenticationController do
   use ButikeWeb, :controller
+  alias Mix.Tasks.Hex.User
   alias Butike.UserService
 
   def send_otp(conn, %{"shop_phone" => shop_phone}) do
@@ -21,15 +22,14 @@ defmodule ButikeWeb.Api.AuthenticationController do
       message: "Could not verify OTP" <> otp_code <> " for phone " <> shop_phone
     }
 
-    # case UserService.verify_otp(shop_phone, otp_code) do
-    #   {:ok, _} ->
-    #     response = %{
-    #       code: 200,
-    #       status: "success",
-    #       message: "OTP Verified successfully for phone " <> shop_phone
-    #     }
-    # end
+    if UserService.is_otp_valid(shop_phone, otp_code) do
+      ^response = %{
+        code: 200,
+        status: "success",
+        message: "OTP Verified successfully for phone " <> shop_phone
+      }
+    end
 
-    # json(conn, response)
+    json(conn, response)
   end
 end

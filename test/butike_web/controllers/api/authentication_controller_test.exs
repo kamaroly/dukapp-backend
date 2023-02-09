@@ -41,7 +41,7 @@ defmodule Users.Api.AuthenticationControllerTest do
     conn =
       get(
         conn,
-        Routes.api_v1_authentication_verify_otp_path(conn, :send_otp, shop_msisdn, otp_code)
+        Routes.api_v1_authentication_verify_otp_path(conn, :verify_otp, shop_msisdn, otp_code)
       )
   end
 end

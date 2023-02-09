@@ -24,8 +24,6 @@ defmodule Butike.UserService do
       shop_phone: phone,
       otp: StringHelper.hash_md5(otp_number)
     })
-
-    # {:ok, otp_number}
   end
 
   def is_otp_valid(phone, otp_code) do
