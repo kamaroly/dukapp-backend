@@ -1,5 +1,6 @@
 defmodule Users.Api.AuthenticationControllerTest do
   use ButikeWeb.ConnCase
+  alias Butike.UserService
   alias Butike.Users.User
   alias Butike.Repo
 
@@ -28,5 +29,19 @@ defmodule Users.Api.AuthenticationControllerTest do
     assert shop.otp_expires_at == nil
     assert shop.created_at !== nil
     assert shop.updated_at !== nil
+  end
+
+  test "User can verify the OTP by passing phone number and the OTP code", %{conn: conn} do
+    shop_msisdn = "250781854852"
+    otp_code = "53738"
+
+    # 1. Start by creating OTP
+    Repo.insert!(%User{shop_phone: shop_msisdn, otp: otp_code})
+
+    conn =
+      get(
+        conn,
+        Routes.api_v1_authentication_verify_otp_path(conn, :send_otp, shop_msisdn, otp_code)
+      )
   end
 end

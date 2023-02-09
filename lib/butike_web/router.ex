@@ -27,6 +27,7 @@ defmodule ButikeWeb.Router do
     scope "/v1", as: :v1 do
       scope "/authentication", as: :authentication do
         get "/:shop_phone/send-otp", AuthenticationController, :send_otp, as: :send_otp
+        get "/:shop_phone/verify/:otp_code", AuthenticationController, :send_otp, as: :verify_otp
       end
 
       # Backup routes
