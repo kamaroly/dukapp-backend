@@ -9,7 +9,7 @@ defmodule Butike.Repo.Migrations.CreateItemInventories do
       add :quantity, :float
       add :amount, :float
 
-      timestamps()
+      timestamps(default: fragment("NOW()"))
     end
   end
 end

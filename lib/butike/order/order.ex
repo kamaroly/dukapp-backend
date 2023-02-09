@@ -2,6 +2,33 @@ defmodule Butike.Order.Order do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @derive {Jason.Encoder,
+           only: [
+             :coupon_lines,
+             :created_via,
+             :customer_supplier_id,
+             :customer_supplier_note,
+             :discount_tax,
+             :discount_total,
+             :fee_lines,
+             :meta_data,
+             :note,
+             :order_key,
+             :order_type,
+             :payments,
+             :prices_include_tax,
+             :refunds,
+             :shop_msisdn,
+             :shop_order_id,
+             :status,
+             :tax_lines,
+             :total,
+             :total_tax,
+             :version,
+             :inserted_at,
+             :updated_at
+           ]}
+
   schema "orders" do
     field :coupon_lines, :string
     field :created_via, :string
@@ -31,7 +58,51 @@ defmodule Butike.Order.Order do
   @doc false
   def changeset(order, attrs) do
     order
-    |> cast(attrs, [:shop_msisdn, :shop_order_id, :order_type, :order_key, :created_via, :version, :status, :discount_total, :discount_tax, :total, :total_tax, :prices_include_tax, :customer_supplier_id, :customer_supplier_note, :payments, :tax_lines, :coupon_lines, :fee_lines, :refunds, :note, :meta_data])
-    |> validate_required([:shop_msisdn, :shop_order_id, :order_type, :order_key, :created_via, :version, :status, :discount_total, :discount_tax, :total, :total_tax, :prices_include_tax, :customer_supplier_id, :customer_supplier_note, :payments, :tax_lines, :coupon_lines, :fee_lines, :refunds, :note, :meta_data])
+    |> cast(attrs, [
+      :shop_msisdn,
+      :shop_order_id,
+      :order_type,
+      :order_key,
+      :created_via,
+      :version,
+      :status,
+      :discount_total,
+      :discount_tax,
+      :total,
+      :total_tax,
+      :prices_include_tax,
+      :customer_supplier_id,
+      :customer_supplier_note,
+      :payments,
+      :tax_lines,
+      :coupon_lines,
+      :fee_lines,
+      :refunds,
+      :note,
+      :meta_data
+    ])
+    |> validate_required([
+      :shop_msisdn,
+      :shop_order_id,
+      :order_type,
+      :order_key,
+      :created_via,
+      :version,
+      :status,
+      :discount_total,
+      :discount_tax,
+      :total,
+      :total_tax,
+      :prices_include_tax,
+      :customer_supplier_id,
+      :customer_supplier_note,
+      :payments,
+      :tax_lines,
+      :coupon_lines,
+      :fee_lines,
+      :refunds,
+      :note,
+      :meta_data
+    ])
   end
 end

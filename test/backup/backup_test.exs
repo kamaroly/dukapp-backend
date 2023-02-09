@@ -1,22 +1,33 @@
 defmodule Backup.BackupTest do
   use ButikeWeb.ConnCase
 
-  alias Butike.Backup.Order
-  alias Butike.Backup
+  alias Butike.Backup.Backup
+  alias Butike.Order.Order
 
+  # 1. Create user in the database
   test "User can retrieve orders by shop phone" do
-    # 1. Create user in the database
     order = %Order{
-      shop_msisdn: "250781854852",
-      order_type: "purchase",
-      item_id: 43,
-      item_name: "Sale Item",
-      item_description: "Why is this even a sale",
-      customer_or_supplier_id: 1,
-      quantity: 43,
-      cost_price: 2,
-      sale_price: 3,
-      payment_mode: "m-pesa"
+      coupon_lines: "[]",
+      created_via: "mobile-app",
+      customer_supplier_id: 123,
+      customer_supplier_note: "Customer Notes",
+      discount_tax: 20.0,
+      discount_total: 10.0,
+      fee_lines: "[]",
+      meta_data: "[]",
+      note: "Customer notes",
+      order_key: "OrderKeys" <> Integer.to_string(Enum.random(100_000..999_999)),
+      order_type: "SALE",
+      payments: "[]",
+      prices_include_tax: 0,
+      refunds: "[]",
+      shop_msisdn: "254757161010",
+      shop_order_id: 1,
+      status: "COMPLETED",
+      tax_lines: "[]",
+      total: 435.0,
+      total_tax: 4340.0,
+      version: "1"
     }
 
     Backup.create_order(order)
@@ -29,16 +40,27 @@ defmodule Backup.BackupTest do
 
   test "get_orders_by_phone returns 0 results when there is no matching phone" do
     order = %Order{
-      shop_msisdn: "250781854852",
-      order_type: "purchase",
-      item_id: 43,
-      item_name: "Sale Item",
-      item_description: "Why is this even a sale",
-      customer_or_supplier_id: 1,
-      quantity: 43,
-      cost_price: 2,
-      sale_price: 3,
-      payment_mode: "m-pesa"
+      coupon_lines: "[]",
+      created_via: "mobile-app",
+      customer_supplier_id: 123,
+      customer_supplier_note: "Customer Notes",
+      discount_tax: 20.0,
+      discount_total: 10.0,
+      fee_lines: "[]",
+      meta_data: "[]",
+      note: "Customer notes",
+      order_key: "OrderKeys" <> Integer.to_string(Enum.random(100_000..999_999)),
+      order_type: "SALE",
+      payments: "[]",
+      prices_include_tax: 0,
+      refunds: "[]",
+      shop_msisdn: "254757161010",
+      shop_order_id: 1,
+      status: "COMPLETED",
+      tax_lines: "[]",
+      total: 435.0,
+      total_tax: 4340.0,
+      version: "1"
     }
 
     Backup.create_order(order)

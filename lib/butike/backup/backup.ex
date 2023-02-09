@@ -1,4 +1,4 @@
-defmodule Butike.Backup do
+defmodule Butike.Backup.Backup do
   @moduledoc """
   The Backup Context
   """
@@ -6,7 +6,7 @@ defmodule Butike.Backup do
   import Ecto.Query
   alias Butike.Repo
   alias Ecto.Adapters.SQL
-  alias Butike.Backup.Order
+  alias Butike.Order.Order
   alias Butike.Helpers.EnumHelper
 
   @doc """
@@ -29,7 +29,7 @@ defmodule Butike.Backup do
 
   def list_orders_by_phone(phone_number) do
     # Send the query to the repository
-    Repo.all(from(order in Butike.Backup.Order, where: order.shop_msisdn == ^phone_number))
+    Repo.all(from(order in Order, where: order.shop_msisdn == ^phone_number))
   end
 
   @doc """
@@ -42,6 +42,6 @@ defmodule Butike.Backup do
   
   """
   def list_orders() do
-    Repo.all(from(order in Butike.Backup.Order))
+    Repo.all(from(order in Order))
   end
 end

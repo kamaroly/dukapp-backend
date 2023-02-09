@@ -12,7 +12,8 @@ defmodule Butike.Repo.Migrations.CreateCustomers do
       add :note, :text
       add :meta_data, :text
 
-      timestamps()
+      timestamps(default: fragment("NOW()"))
+
     end
   end
 end

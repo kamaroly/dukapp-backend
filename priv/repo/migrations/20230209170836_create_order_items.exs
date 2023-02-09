@@ -17,7 +17,7 @@ defmodule Butike.Repo.Migrations.CreateOrderItems do
       add :note, :text
       add :meta_data, :text
 
-      timestamps()
+      timestamps(default: fragment("NOW()"))
     end
   end
 end

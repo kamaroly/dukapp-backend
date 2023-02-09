@@ -1,7 +1,6 @@
 defmodule ButikeWeb.Api.BackupController do
   use ButikeWeb, :controller
-  alias Butike.Backup
-  alias Butike.Repo
+  alias Butike.Backup.Backup
 
   @doc """
   Returns the list of orders collection
