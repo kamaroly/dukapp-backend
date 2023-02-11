@@ -16,7 +16,7 @@ defmodule Butike.BackupControllerTest do
       }
 
       response_payload = %{
-        "code" => 201,
+        "code" => 200,
         "status" => "success",
         "message" => "Real time backup taken"
       }
@@ -72,7 +72,6 @@ defmodule Butike.BackupControllerTest do
 
       response = json_response(conn, 200)
 
-      IO.inspect(response)
       # Ensure the orders are created in the database
       assert Enum.count(response) > 1
     end

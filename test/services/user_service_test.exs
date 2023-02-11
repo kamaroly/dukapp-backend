@@ -4,14 +4,17 @@ defmodule Services.UserServiceTest do
   alias Butike.Helpers.StringHelper
 
   test "User can be registered using phone only" do
-    phone = "254757161010"
+    phone = "254757161910"
     otp_code = "29832"
-    {:ok, response} = UserService.register_user_by_phone(phone, otp_code)
 
-    assert StringHelper.hash_md5(otp_code) == response.otp
+    UserService.register_user_by_phone(phone, otp_code)
+    {:ok, user_shop} = UserService.register_user_by_phone(phone, otp_code)
+
+    assert StringHelper.hash_md5(otp_code) == user_shop.otp
   end
 
   test "User van be verified using phone and OTP" do
+
     phone = "254757161010"
     otp_code = "29923"
 
