@@ -2,6 +2,15 @@ defmodule Butike.Item.Inventory do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @derive {Jason.Encoder,
+           only: [
+             :amount,
+             :comment,
+             :item_id,
+             :quantity,
+             :shop_msisdn
+           ]}
+
   schema "item_inventories" do
     field :amount, :float
     field :comment, :string
