@@ -31,16 +31,22 @@ defmodule Butike.UserService do
     results =
       case Repo.get_by(User, shop_phone: phone) do
         # User not found, we build one
-        nil -> %User{shop_phone: phone, otp: StringHelper.hash_md5(otp_number), otp_expires_at: otp_will_expire_at}
-        # User exists, let's use it
-        user -> user
-      end
+        nil ->
+          %User{
+            shop_phone: phone,
+            otp: StringHelper.hash_md5(otp_number),
+            otp_expires_at: otp_will_expire_at
+          }
 
+        # User exists, let's use it
+        user ->
+          user
+      end
       |> User.changeset(%{
         otp: StringHelper.hash_md5(otp_number),
         otp_expires_at: otp_will_expire_at
       })
-      |> Repo.insert_or_update
+      |> Repo.insert_or_update()
 
     case results do
       # Inserted or updated with success
@@ -62,10 +68,10 @@ defmodule Butike.UserService do
       Repo.all(
         from user in User,
           where:
-            user.shop_phone == ^phone and user.otp == ^hashed_otp_code 
+            user.shop_phone == ^phone and user.otp == ^hashed_otp_code and
+              user.otp_expires_at > ^current_date_time
       )
 
-    IO.inspect(result)
-    # Enum.count(result) > 0
+    Enum.count(result) > 0
   end
 end

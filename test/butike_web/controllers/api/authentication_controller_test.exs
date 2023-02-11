@@ -3,7 +3,6 @@ defmodule Users.Api.AuthenticationControllerTest do
   alias Butike.UserService
   alias Butike.Users.User
   alias Butike.Repo
-  alias Butike.Helpers.StringHelper
 
   test "User can be registered with valid unique phone number", %{conn: conn} do
     shop_msisdn = "250781854852"

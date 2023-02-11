@@ -14,7 +14,6 @@ defmodule Services.UserServiceTest do
   end
 
   test "User van be verified using phone and OTP" do
-
     phone = "254757161010"
     otp_code = "29923"
 
