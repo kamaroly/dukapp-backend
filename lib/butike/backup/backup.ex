@@ -9,7 +9,7 @@ defmodule Butike.Backup.Backup do
   alias Butike.Helpers.EnumHelper
 
   @doc """
-  Backups an order
+  Take backup of the application
   """
   def record(attributes) do
     # query_values = attributes["query_parameters"]
@@ -28,13 +28,13 @@ defmodule Butike.Backup.Backup do
 
   @doc """
   Retrieves backup for a specific phone
-
+  
   ## Examples
     iex> Butike.Backup.Backup.get_backup_for_phone(phone_number)
     [%User{}, ...]
   """
-  def get_backup_for_shop(shop_phone) do
-    Repo.get(User, 1)
+  def get_backup_for_shop(shop_phone_number) do
+    Repo.get_by(User, shop_phone: shop_phone_number)
     |> Repo.preload([:orders, :order_items, :items, :item_inventories, :customers, :suppliers])
   end
 end

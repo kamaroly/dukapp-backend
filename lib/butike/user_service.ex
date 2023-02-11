@@ -19,17 +19,39 @@ defmodule Butike.UserService do
     SmsService.send(phone, sms_message)
   end
 
+  @doc """
+  Register Shop/ User by phone
+  """
   def register_user_by_phone(phone, otp_number) do
     {:ok, otp_will_expire_at} =
-      Timex.shift(Timex.now(), minutes: 2) |> Timex.format("{YYYY}-{0M}-{0D}T{h24}:{m}:{s}")
+      Timex.shift(Timex.now(), minutes: 2)
+      |> Timex.format("{YYYY}-{0M}-{0D}T{h24}:{m}:{s}")
 
-    Repo.insert(%User{
-      shop_phone: phone,
-      otp: StringHelper.hash_md5(otp_number),
-      otp_expires_at: otp_will_expire_at
-    })
+    # Avoid duplicating Shops with the same phone number
+    results =
+      case Repo.get_by(User, shop_phone: phone) do
+        # User not found, we build one
+        nil -> %User{shop_phone: phone}
+        # User exists, let's use it
+        user -> user
+      end
+      |> User.changeset(%{
+        otp: StringHelper.hash_md5(otp_number),
+        otp_expires_at: otp_will_expire_at
+      })
+      |> Repo.insert_or_update()
+
+    case results do
+      # Inserted or updated with success
+      {:ok, user} -> user
+      # Something went wrong
+      {:error, changeset} -> {:error, changeset}
+    end
   end
 
+  @doc """
+  Validates OTP
+  """
   def is_otp_valid(phone, otp_code) do
     hashed_otp_code = StringHelper.hash_md5(otp_code)
 

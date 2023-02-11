@@ -1,5 +1,6 @@
 defmodule Butike.Users.User do
   use Ecto.Schema
+  import Ecto.Changeset
   alias Butike.Order.Order
   alias Butike.Order.OrderItem
   alias Butike.Customer.Customer
@@ -35,5 +36,15 @@ defmodule Butike.Users.User do
     has_many :item_inventories, Inventory, foreign_key: :shop_msisdn, references: :shop_phone
     has_many :customers, Customer, foreign_key: :shop_msisdn, references: :shop_phone
     has_many :suppliers, Supplier, foreign_key: :shop_msisdn, references: :shop_phone
+  end
+
+  @doc false
+  def changeset(users, attrs) do
+    users
+    |> cast(attrs, [
+      :shop_phone
+    ])
+    |> validate_required(:shop_phone)
+    |> unique_constraint(:shop_phone, name: :unique_shop_phone_index)
   end
 end

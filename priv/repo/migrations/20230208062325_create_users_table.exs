@@ -10,5 +10,7 @@ defmodule Butike.Repo.Migrations.CreateUsersTable do
 
       timestamps(default: fragment("NOW()"))
     end
+
+    create unique_index(:users, [:shop_phone])
   end
 end
