@@ -13,7 +13,7 @@ defmodule Butike.Repo.Migrations.CreateSuppliers do
       add :note, :text
       add :meta_data, :text
 
-      timestamps(default: fragment("NOW()"))
+      timestamps(default: fragment("CURRENT_TIMESTAMP"))
 
     end
   end
