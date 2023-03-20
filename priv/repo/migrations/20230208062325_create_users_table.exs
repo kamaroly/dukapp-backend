@@ -8,7 +8,7 @@ defmodule Butike.Repo.Migrations.CreateUsersTable do
       add(:otp, :string)
       add(:otp_expires_at, :string)
 
-      timestamps(default: fragment("NOW()"))
+      timestamps(default: fragment("CURRENT_TIMESTAMP"))
     end
 
     create unique_index(:users, [:shop_phone])
