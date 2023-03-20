@@ -14,6 +14,10 @@ config :butike, ButikeWeb.Endpoint, cache_static_manifest: "priv/static/cache_ma
 # Do not print debug messages in production
 config :logger, level: :info
 
+
+# Database configuration 
+config :butike, Butike.Repo,  database: "dukapp.db"
+
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key
