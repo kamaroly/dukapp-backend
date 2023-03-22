@@ -14,9 +14,15 @@ config :butike, ButikeWeb.Endpoint, cache_static_manifest: "priv/static/cache_ma
 # Do not print debug messages in production
 config :logger, level: :info
 
-
-# Database configuration 
-config :butike, Butike.Repo,  database: "dukapp.db"
+# Database configuration
+config :butike, Butike.Repo,
+  username: "root",
+  password: "",
+  hostname: "localhost",
+  database: "butike_dev",
+  stacktrace: true,
+  show_sensitive_data_on_connection_error: true,
+  pool_size: 10
 
 # ## SSL Support
 #

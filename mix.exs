@@ -50,8 +50,7 @@ defmodule Butike.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:httpoison, "~> 2.0"},
-      {:timex, "~> 3.0"},
-      {:ecto_sqlite3, "~> 0.9.1"}
+      {:timex, "~> 3.0"}
     ]
   end
 
