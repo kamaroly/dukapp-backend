@@ -20,7 +20,7 @@ config :butike, Butike.Repo,
   password: "",
   hostname: "localhost",
   database: "butike",
-  socket: "/var/run/mysqld/mysqld.sock"
+  socket: "/var/run/mysqld/mysqld.sock",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
