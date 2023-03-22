@@ -28,7 +28,7 @@ config :logger,
 # configuration for the {LoggerFileBackend, :error_log} backend
 config :logger, :error_log,
   path: "/var/log/dukapp/error.log",
-  level: :error
+  level: :debug
 
 # Configures the mailer
 #

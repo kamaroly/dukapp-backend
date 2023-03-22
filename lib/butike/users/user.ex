@@ -42,7 +42,9 @@ defmodule Butike.Users.User do
   def changeset(users, attrs) do
     users
     |> cast(attrs, [
-      :shop_phone
+      :shop_phone,
+      :otp,
+      :otp_expires_at
     ])
     |> validate_required(:shop_phone)
     |> unique_constraint(:shop_phone, name: :unique_shop_phone_index)
