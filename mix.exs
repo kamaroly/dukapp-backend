@@ -50,7 +50,8 @@ defmodule Butike.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:httpoison, "~> 2.0"},
-      {:timex, "~> 3.0"}
+      {:timex, "~> 3.0"},
+      {:logger_file_backend, "~> 0.0.13"}
     ]
   end
 

@@ -17,6 +17,19 @@ config :butike, ButikeWeb.Endpoint,
   pubsub_server: Butike.PubSub,
   live_view: [signing_salt: "TWSQG22z"]
 
+# tell logger to load a LoggerFileBackend processes
+config :logger,
+  backends: [{LoggerFileBackend, :error_log}]
+
+# tell logger to load a LoggerFileBackend processes
+config :logger,
+  backends: [{LoggerFileBackend, :error_log}]
+
+# configuration for the {LoggerFileBackend, :error_log} backend
+config :logger, :error_log,
+  path: "/var/log/my_app/error.log",
+  level: :error
+
 # Configures the mailer
 #
 # By default it uses the "Local" adapter which stores the emails
