@@ -19,7 +19,8 @@ config :butike, Butike.Repo,
   username: "root",
   password: "",
   hostname: "localhost",
-  database: "butike_dev",
+  database: "butike",
+  socket: "/var/run/mysqld/mysqld.sock"
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
